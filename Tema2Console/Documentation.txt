@@ -1,0 +1,52 @@
+﻿// Single responsibility principle
+
+De ce este incalcat acest principiu: clasa HotelReception are prea multe responsabilitati si low cohesion, 
+deci poate fi impartita in mai multe clase mici cu coeziune ridicata 
+
+Descriere implementari: 
+- Crearea unei clase Logger care sa se ocupe doar de printarea mesajelor in consola.
+- Crearea unei clase FileReader care sa se ocupe doar de citirea din fisier.
+- Crearea unei clase OrderDeserializer care sa se ocupe doar de deserializarea obiectelor de tip Order.
+
+Rezultat: Fiecare clasa are propria responsabilitate
+
+// Open/closed principle
+
+De ce este incalcat acest principiu: clasa HotelReception nu este deschisa pentru extindere, 
+deoarece nu putem adauga noi tipuri de obiecte de tip Order fara a modifica clasa.
+
+Descriere implementari: 
+- Crearea unei fabrici pentru crearea de procesori de comenzi. Clasa ProcessorFactory permite adăugarea de noi tipuri de procesori fără a modifica codul existent.
+
+Rezultat: Pot fi introduse tipuri de comenzi noi (open to extension), fara a fi necesar sa modificam codul existent (closed to modification)
+
+// Liskov Substitution Principle 
+
+De ce este incalcat acest principiu: clasa HotelReception contine mai multe tipuri de comenzi care sunt procesate, iar acestea nu utilizeaza 
+o clasa abstracta cu ajutorul careia comenzile sa poata fi inlocuite intre ele fara a afecta programul.
+
+Descriere implementari:
+- Crearea unei clase abstracte Processor
+- Crearea claselor ProductOrderProcessor, BreakfastOrderProcessor, RoomOrderProcessor
+si UnknownOrderProcessor care vor mosteni clasa Processor
+
+Rezultat: Principiul LSP este respectat, deoarece clasele pot fi inlocuite intre ele fara a fi afectat programul.
+
+// Interface Segregation Principle
+
+De ce este incalcat acest principiu: Programul nu utilizeaza interfete, ceea ce inseamna ca este posibil ca clientii sa depinda de 
+metode pe care nu le utilizeaza
+
+Descriere implementari: 
+- Crearea de interfete mici si specificem, cum ar fi IFileReader, IOrderDeserializer, care sunt implementate de clasele care au nevoie de aceste comportamente
+
+Rezultat: Codul este mai putin fragil, mai usor de testat si mai putin cuplat.
+
+// Dependency Inversion Principle 
+
+De ce este incalcat: Programul nu injecteaza dependinte in constructorul clasei HotelReception, acesta depinzand de implementari concrete ale claselor utilizate
+
+Descriere implementare: 
+- Injectarea dependintelor necesare (ILogger, IFileReader, IOrderDeserializer, IProcessorFactory) in constructorul clasei HotelReception
+
+Rezultat: Clasa HotelReception depinde acum de interfete, ceea ce face codul mai flexibil si mai usor de testat.

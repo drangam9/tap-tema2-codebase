@@ -1,4 +1,6 @@
-﻿namespace Tema2Console
+﻿using Tema2Console.Factory;
+
+namespace Tema2Console
 {
     internal class Program
     {
@@ -6,7 +8,13 @@
         {
             Console.WriteLine("Starting Client...");
 
-            var hotelReception = new HotelReception();
+            var logger = new Logger();
+            var hotelReception = new HotelReception(
+                logger,
+                new FileReader(),
+                new ProcessorFactory(logger),
+            new OrderDeserializer()
+                );
             hotelReception.ProcessOrder();
 
             if (hotelReception.FinalPrice == 0)
